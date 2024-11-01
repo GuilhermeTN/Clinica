@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Estoque</title>
+    <link rel="stylesheet" href="Css/estoque.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerenciamento de Estoque de Fisioterapia</h1>
+        <div class="form-container">
+            <h2>Adicionar Item</h2>
+            <form id="formularioEstoque">
+                <input type="text" id="descricao" placeholder="Descrição" required>
+                <input type="number" id="quantidade" placeholder="Quantidade" required>
+                <input type="number" id="alertaMinimo" placeholder="Alerta Mínimo" required>
+                <button type="submit">Adicionar Item</button>
+            </form>
+        </div>
+
+        <div class="form-container">
+            <h2>Controle de Estoque</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-corpo">
+                    <!-- Os itens do estoque serão adicionados aqui dinamicamente -->
+                </tbody>
+            </table>
+            
+        </div>
+
+        <div id="alert-container" class="alert"></div>
+    </div>
+
+    <script src="JS/estoque.js" defer></script>
+</body>
+</html>

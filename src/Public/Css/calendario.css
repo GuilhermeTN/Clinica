@@ -1,0 +1,30 @@
+#calendario {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+#mesAno {
+    font-size: 24px; /* Tamanho da fonte */
+    font-weight: bold; /* Negrito */
+    margin-bottom: 10px; /* Espaçamento abaixo do texto */
+    text-align: center; /* Centraliza o texto */
+}
+
+.dia {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dia.verde {
+    background-color: #d4edda; /* Verde para dias sem consultas */
+}
+
+.dia.vermelho {
+    background-color: #f8d7da; /* Vermelho para dias com consultas */
+}

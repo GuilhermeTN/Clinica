@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacientes - Clínica de Fisioterapia</title>
+    <link rel="stylesheet" href="css/pacientesStyle.css">
+</head>
+<body>
+    <div class="navigation">
+        <a href="/">Página Principal</a>
+        <a href="/consultas">Consultas</a>
+        <a href="/prontuarios">Prontuários</a>
+        <a href="/faturamentos">Faturamentos</a>
+        <a href="/fisioterapeutas">Fisioterapeutas</a>
+        <a href="/tratamentos">Tratamentos</a>
+        <a href="/estoque">Estoque</a>
+    </div>
+
+    <h1>Cadastro de Pacientes</h1>
+    <form id="pacienteForm">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="dataNascimento">Data de Nascimento:</label>
+        <input type="date" id="dataNascimento" name="dataNascimento" required>
+
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco" name="endereco" required>
+
+        <label for="genero">Gênero:</label>
+        <select id="genero" name="genero" required>
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+            <option value="Outro">Outro</option>
+        </select>
+
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" required>
+
+        <button type="submit">Cadastrar Paciente</button>
+    </form>
+
+    <div id="status"></div>
+
+    <h2>Pacientes Cadastrados</h2>
+    <table id="pacientesTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Data de Nascimento</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Endereço</th>
+                <th>Gênero</th>
+                <th>CPF</th>
+                <th>Ações</th> <!-- Nova coluna para ações -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Os dados dos pacientes serão inseridos aqui -->
+        </tbody>
+    </table>
+
+    <script src="js/pacientes.js"></script>
+</body>
+</html>

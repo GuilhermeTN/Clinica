@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultas - Clínica de Fisioterapia</title>
+    <link rel="stylesheet" href="css/consultasStyle.css">
+    <link rel="stylesheet" href="css/calendario.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="navigation">
+        <a href="/">Página Principal</a>
+        <a href="/consultas">Consultas</a>
+        <a href="/prontuarios">Prontuários</a>
+        <a href="/faturamentos">Faturamentos</a>
+        <a href="/fisioterapeutas">Fisioterapeutas</a>
+        <a href="/tratamentos">Tratamentos</a>
+        <a href="/estoque">Estoque</a>
+    </div>
+    <h1>Consultas</h1>
+    <p>Gerenciamento de consultas.</p>
+
+    <div id="calendario">
+        <div id="mesAno"></div> 
+    </div>
+
+    <div id="modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Agendar Consulta</h2>
+            <p id="dataSelecionadaText"></p>
+            <form id="formAgendarConsulta" onsubmit="agendarConsulta(event)">
+                <label for="pacienteSelect">Paciente:</label>
+                <select id="pacienteSelect" required>
+                    <option value="">Escolha um Paciente</option>
+                </select>
+                
+                <label for="fisioterapeutaSelect">Selecionar Fisioterapeuta:</label>
+                <select id="fisioterapeutaSelect" required>
+                    <option value="">Escolha um fisioterapeuta</option>
+                </select>
+
+                <label for="data">Data da Consulta:</label>
+                <input type="date" id="data" required>
+
+                <label for="tipoTratamento">Tipo de Tratamento:</label>
+                <input type="text" id="tipoTratamento" required>
+        
+                <label for="observacoes">Observações:</label>
+                <textarea id="observacoes"></textarea>
+        
+                <button type="submit" id="confirmarAgendamento">Confirmar Agendamento</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/consultas.js"></script>
+    <script src="js/calendario.js"></script>
+</body>
+</html>
