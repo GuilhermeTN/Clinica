@@ -1,21 +1,14 @@
-// src/routes/faturamento.js
 const express = require('express');
+const path = require('path');
 const router = express.Router();
 const faturamentoController = require('../controllers/faturamentoController');
 
-// Rota para obter todos os faturamentos
-router.get('/', faturamentoController.getAll);
+// Rota para renderizar o HTML
+router.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'faturamento.html'));
+});
 
-// Rota para obter um faturamento específico por ID
-router.get('/:id', faturamentoController.getById);
-
-// Rota para criar um novo faturamento
-router.post('/', faturamentoController.create);
-
-// Rota para atualizar um faturamento por ID
-router.put('/:id', faturamentoController.update);
-
-// Rota para excluir um faturamento por ID
-router.delete('/:id', faturamentoController.delete);
+// Rota para registrar pagamento
+router.post('/registrar', faturamentoController.registrarPagamento);
 
 module.exports = router;

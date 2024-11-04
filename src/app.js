@@ -19,7 +19,7 @@ app.use('/db', express.static(path.join(__dirname, 'db')));
 app.use('/pacientes', pacienteRoutes);
 app.use('/consultas', consultaRoutes);
 app.use('/prontuarios', prontuarioRoutes);
-app.use('/faturamentos', faturamentoRoutes);
+app.use('/faturamento', faturamentoRoutes);
 app.use('/fisioterapeutas', fisioterapeutaRoutes);
 app.use('/tratamentos', tratamentoRoutes);
 app.use('/estoque', estoqueRoutes);

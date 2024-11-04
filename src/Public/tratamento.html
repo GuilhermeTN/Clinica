@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão de Tratamentos de Fisioterapia</title>
+  <link rel="stylesheet" href="Css/tratamento.css">
+</head>
+<body>
+  <header>
+    <h1>Gestão de Tratamentos de Fisioterapia</h1>
+  </header>
+  
+  <main>
+    <section id="treatment-registration">
+      <h2>Registro de Planos de Tratamento</h2>
+      <form id="treatment-form">
+        <label for="patient-name">Nome do Paciente:</label>
+        <input type="text" id="patient-name" required>
+        
+        <label for="treatment-plan">Plano de Tratamento:</label>
+        <textarea id="treatment-plan" rows="3" required></textarea>
+        
+        <button type="submit">Registrar Tratamento</button>
+      </form>
+    </section>
+
+    <section id="procedure-control">
+      <h2>Controle de Procedimentos</h2>
+      <div id="procedures-list">
+        <!-- Lista de procedimentos adicionados -->
+      </div>
+    </section>
+
+    <section id="record-update">
+      <h2>Atualização de Prontuário</h2>
+      <button onclick="updateRecord()">Atualizar Prontuário Após Sessão</button>
+      <p id="update-status"></p>
+    </section>
+  </main>
+
+  <script src="JS/tratamento.js"></script>
+</body>
+</html>

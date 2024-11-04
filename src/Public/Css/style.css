@@ -1,17 +1,145 @@
-body {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: Arial, sans-serif;
+  }
+  
+  body {
+    background-color: #f3f3f3;
+    color: #333;
+  }
+  
+  header {
+    width: 100%;
+  }
+  
+  .banner {
+    width: 100%;
+    height: 300px; /* Altura do banner */
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKH9aiJXpjhMQFjohRIum86033GNZ73tWqPA&s');
+    background-size: cover; /* Cobre o espaço sem distorcer */
+    background-position: center; /* Centraliza a imagem */
+  }
+  
+  nav {
+    background-color: #008080;
+    padding: 10px;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  nav ul li {
+    display: inline;
+  }
+  
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  nav ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  h1 {
+    color: #008080;
     text-align: center;
-}
-.button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
+    font-size: 2.5rem;
+    margin: 20px 0;
+  }
+  
+  #content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .button {
+    background-color: #008080;
+    color: #fff;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
     cursor: pointer;
-    background-color: #007BFF; /* Cor do botão */
-    color: white; /* Cor do texto */
-    border: none; /* Sem borda */
-    border-radius: 5px; /* Bordas arredondadas */
+    transition: background-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #005f5f;
+  }
+  
+  .button:active {
+    background-color: #004949;
+  }
+  
+  .especialidades {
+    text-align: center;
+    padding: 40px;
+    font-family: Arial, sans-serif;
 }
-.button:hover {
-    background-color: #0056b3; /* Cor do botão ao passar o mouse */
+
+.especialidades h2 {
+    font-size: 28px;
+    color: #008080; /* Tom de verde */
+    margin-bottom: 20px;
+}
+
+.card-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: #f9f9f9;
+    width: 220px;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    background-size: cover;
+    background-position: center;
+    border: 3px solid #008080; /* Borda verde */
+}
+
+.card h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.card p {
+    font-size: 14px;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+/* Efeito de hover para o card */
+.card:hover {
+    background-color: #008080; /* Fundo verde ao passar o mouse */
+    color: #fff;
+}
+
+.card:hover h3,
+.card:hover p {
+    color: #fff; /* Texto branco ao passar o mouse */
 }

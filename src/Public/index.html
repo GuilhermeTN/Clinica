@@ -1,4 +1,3 @@
-<!-- public/index.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,16 +7,40 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Clínica de Fisioterapia</h1>
-    <div id="content">
-        <button class="button" onclick="window.location.href='/pacientes'">Pacientes</button>
-        <button class="button" onclick="window.location.href='/consultas'">Consultas</button>
-        <button class="button" onclick="window.location.href='/prontuarios'">Prontuários</button>
-        <button class="button" onclick="window.location.href='/faturamentos'">Faturamentos</button>
-        <button class="button" onclick="window.location.href='/fisioterapeutas'">Fisioterapeutas</button>
-        <button class="button" onclick="window.location.href='/tratamentos'">Tratamentos</button>
-        <button class="button" onclick="window.location.href='/estoque'">Estoque</button>
-    </div>
+    <header>
+        <div class="banner"></div>
+        <nav>
+            <ul>
+                <li><a href="/pacientes">Pacientes</a></li>
+                <li><a href="/consultas">Consultas</a></li>
+                <li><a href="/prontuarios">Prontuários</a></li>
+                <li><a href="/faturamento">Faturamento</a></li>
+                <li><a href="/fisioterapeutas">Fisioterapeutas</a></li>
+                <li><a href="/tratamentos">Tratamentos</a></li>
+                <li><a href="/estoque">Estoque</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Clínica de Fisioterapia</h1>
+        <div class="especialidades">
+            <h2>Especialidades</h2>
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-image" style="background-image: url('https://orthophysio.com.br/storage/especialidades/October2020/fjhxt4a1M0s23oacSL9G.png');"></div>
+                    <h3>Acupuntura</h3>
+                    <p>Cada vez mais, técnicas de diversas origens são empregadas para promover o bem-estar...</p>
+                </div>
+                <div class="card">
+                    <div class="card-image" style="background-image: url('https://orthophysio.com.br/storage/especialidades/February2022/fwvE8pfH65rqOGIfCYHV.png');"></div>
+                    <h3>Dores Crônicas</h3>
+                    <p>Esse atendimento é focado em pacientes que sofrem com dores a mais de 3 (três) meses...</p>
+                </div>
+                <!-- Adicione mais cards conforme necessário -->
+            </div>
+        </div>
+    </main>
     <script src="js/main.js"></script>
 </body>
 </html>

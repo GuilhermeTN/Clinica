@@ -1,58 +1,46 @@
-// src/controllers/faturamentoController.js
-const db = require('../../db/database');
+const fs = require('fs');
+const path = require('path');
+const paymentsFilePath = path.join(__dirname, '../../db/pagamentos.json');
 
-exports.getAll = async (req, res) => {
-    try {
-        const [results] = await db.query('SELECT * FROM faturamento');
-        res.json(results);
-    } catch (err) {
-        res.status(500).json(err);
-    }
+// Função para gerar um ID único (simples, para propósitos de exemplo)
+const generateId = () => {
+    return Date.now();
 };
 
-exports.getById = async (req, res) => {
-    try {
-        const [results] = await db.query('SELECT * FROM faturamento WHERE id = ?', [req.params.id]);
-        if (results.length === 0) {
-            return res.status(404).json({ message: 'Faturamento não encontrado' });
+// Função para registrar pagamento
+const registrarPagamento = (req, res) => {
+    const { patientName, paymentType, amount } = req.body;
+    const newPayment = {
+        id: generateId(),
+        nome: patientName,
+        total: amount
+    };
+
+    // Ler o arquivo JSON existente
+    fs.readFile(paymentsFilePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Erro ao ler o arquivo:', err);
+            return res.status(500).json({ message: 'Erro ao registrar pagamento' });
         }
-        res.json(results[0]);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-};
 
-exports.create = async (req, res) => {
-    const { pacienteId, valor, dataPagamento, status } = req.body;
-    try {
-        const [results] = await db.query('INSERT INTO faturamento SET ?', { pacienteId, valor, dataPagamento, status });
-        res.status(201).json({ id: results.insertId, ...req.body });
-    } catch (err) {
-        res.status(500).json(err);
-    }
-};
-
-exports.update = async (req, res) => {
-    const { pacienteId, valor, dataPagamento, status } = req.body;
-    try {
-        const [results] = await db.query('UPDATE faturamento SET ? WHERE id = ?', [{ pacienteId, valor, dataPagamento, status }, req.params.id]);
-        if (results.affectedRows === 0) {
-            return res.status(404).json({ message: 'Faturamento não encontrado' });
+        let payments = [];
+        if (data) {
+            payments = JSON.parse(data); // Parse se o arquivo não estiver vazio
         }
-        res.json({ message: 'Faturamento atualizado com sucesso' });
-    } catch (err) {
-        res.status(500).json(err);
-    }
+
+        payments.push(newPayment); // Adiciona o novo pagamento
+
+        // Escrever de volta no arquivo JSON
+        fs.writeFile(paymentsFilePath, JSON.stringify(payments, null, 2), (err) => {
+            if (err) {
+                console.error('Erro ao salvar pagamentos:', err);
+                return res.status(500).json({ message: 'Erro ao registrar pagamento' });
+            }
+            res.status(201).json(newPayment); // Responde com o pagamento criado
+        });
+    });
 };
 
-exports.delete = async (req, res) => {
-    try {
-        const [results] = await db.query('DELETE FROM faturamento WHERE id = ?', [req.params.id]);
-        if (results.affectedRows === 0) {
-            return res.status(404).json({ message: 'Faturamento não encontrado' });
-        }
-        res.json({ message: 'Faturamento excluído com sucesso' });
-    } catch (err) {
-        res.status(500).json(err);
-    }
+module.exports = {
+    registrarPagamento,
 };

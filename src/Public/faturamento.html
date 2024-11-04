@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Css/faturamentoStyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Gestão Financeira - Fisioterapia</title>
+</head>
+<body>
+    <header>
+        <h1>Gestão Financeira - Fisioterapia</h1>
+        <nav>
+            <ul>
+                <li><a href="#pagamentos">Controle de Pagamentos</a></li>
+                <li><a href="#faturas">Emissão de Faturas</a></li>
+                <li><a href="#relatorios">Relatórios Financeiros</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="pagamentos">
+            <h2>Controle de Pagamentos</h2>
+            <form id="pagamentoForm">
+                <label for="patientName">Nome do Paciente:</label>
+                <input type="text" id="patientName" required>
+                
+                <label for="paymentType">Tipo de Pagamento:</label>
+                <select id="paymentType" required>
+                    <option value="particular">Particular</option>
+                    <option value="convenio">Convênio</option>
+                </select>
+            
+                <label for="amount">Valor:</label>
+                <input type="number" id="amount" required>
+                
+                <button type="submit">Registrar Pagamento</button>
+            </form>
+            <div id="paymentList"></div>
+            <h3>Total Recebido: R$<span id="totalReceived">0.00</span></h3>
+        </section>
+
+        <section id="faturas">
+            <h2>Emissão de Faturas</h2>
+            <button onclick="emitirFatura()">Emitir Fatura</button>
+            <div id="faturaResult"></div>
+        </section>
+
+        <section id="relatorios">
+            <h2>Relatórios Financeiros</h2>
+            <button onclick="gerarRelatorio()">Gerar Relatório</button>
+            <div class="teste">
+                <canvas id="paymentChart"  width="300" height="150"></canvas>
+            </div>
+            <div id="relatorioResult"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Gestão Financeira de Fisioterapia</p>
+    </footer>
+
+    <script der src="JS/faturamento.js"></script>
+</body>
+</html>

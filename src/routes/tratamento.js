@@ -1,7 +1,14 @@
 // src/routes/tratamento.js
+const path = require('path');
 const express = require('express');
 const router = express.Router();
 const tratamentoController = require('../controllers/tratamentoController');
+
+
+// Rota para renderizar o HTML
+router.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'tratamento.html'));
+});
 
 // Rota para obter todos os tratamentos
 router.get('/', tratamentoController.getAll);
