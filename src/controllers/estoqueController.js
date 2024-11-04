@@ -25,8 +25,13 @@ const writeData = (data) => {
 
 exports.getItems = (req, res) => {
     const stockItems = readData();
-    res.json(stockItems);
+    const itemsWithAlert = stockItems.map(item => {
+        item.alertaAtivado = item.quantidade <= item.alertaMinimo;
+        return item;
+    });
+    res.json(itemsWithAlert);
 };
+
 
 exports.getById = (req, res) => {
     try {
@@ -50,6 +55,13 @@ exports.create = (req, res) => {
     const stockItems = readData();
     stockItems.push(newItem);
     writeData(stockItems);
+
+    // Verifica se o item criado está abaixo do alerta mínimo
+    if (newItem.quantidade < newItem.alertaMinimo) {
+        // Aqui você pode enviar um evento ou mensagem para o frontend, mas para simplicidade,
+        // vamos apenas logar no console.
+        console.log(`Alerta: O item ${newItem.descricao} está abaixo do limite mínimo.`);
+    }
 
     res.status(201).json(newItem);
 };

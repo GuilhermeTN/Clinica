@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'pacientes.html'));
 });
 
+router.get('/', pacienteController.getAllPacientes);
 // Rota para obter todos os pacientes
 router.get('/data', pacienteController.getAll);
 

@@ -1,57 +1,107 @@
-const db = require('../../db/database');
+const fs = require('fs');
+const path = require('path');
+const jsonFilePath = path.join(__dirname, '../../db/paciente.json');
 
-exports.getAll = async (req, res) => {
+// Função auxiliar para ler o arquivo JSON
+const readJsonFile = () => {
+    const data = fs.readFileSync(jsonFilePath, 'utf8');
+    return JSON.parse(data);
+};
+
+
+const readDataFromFile = () => {
     try {
-        const [results] = await db.query('SELECT * FROM paciente');
-        res.json(results);
+        return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
     } catch (err) {
-        res.status(500).json(err);
+        console.error("Erro ao ler o arquivo paciente.json:", err);
+        throw err; // Lança o erro para que a função getAllPacientes também capture
     }
 };
 
-exports.getById = async (req, res) => {
+// Função auxiliar para escrever no arquivo JSON
+const writeJsonFile = (data) => {
+    fs.writeFileSync(jsonFilePath, JSON.stringify(data, null, 2), 'utf8');
+};
+
+exports.getAll = (req, res) => {
     try {
-        const [results] = await db.query('SELECT * FROM paciente WHERE id = ?', [req.params.id]);
-        if (results.length === 0) {
+        const pacientes = readJsonFile();
+        res.json(pacientes);
+    } catch (err) {
+        res.status(500).json({ message: 'Erro ao ler pacientes', error: err });
+    }
+};
+
+
+exports.getAllPacientes = (req, res) => {
+    fs.readFile(filePath, 'utf-8', (err, data) => {
+        if (err) {
+            console.error("Erro ao ler paciente.json:", err);
+            return res.status(500).json({ message: 'Erro ao carregar pacientes' });
+        }
+        try {
+            const pacientes = JSON.parse(data);
+            res.json(pacientes);
+        } catch (parseError) {
+            console.error("Erro ao parsear paciente.json:", parseError);
+            res.status(500).json({ message: 'Erro ao processar dados dos pacientes' });
+        }
+    });
+};
+exports.getById = (req, res) => {
+    try {
+        const pacientes = readJsonFile();
+        const paciente = pacientes.find(p => p.id === parseInt(req.params.id));
+        if (!paciente) {
             return res.status(404).json({ message: 'Paciente não encontrado' });
         }
-        res.json(results[0]);
+        res.json(paciente);
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: 'Erro ao ler pacientes', error: err });
     }
 };
 
-exports.create = async (req, res) => {
+exports.create = (req, res) => {
     const { nome, dataNascimento, telefone, email, endereco, genero, cpf } = req.body;
     try {
-        const [results] = await db.query('INSERT INTO paciente SET ?', { nome, dataNascimento, telefone, email, endereco, genero, cpf });
-        res.status(201).json({ id: results.insertId, ...req.body });
+        const pacientes = readJsonFile();
+        const newId = pacientes.length ? pacientes[pacientes.length - 1].id + 1 : 1;
+        const newPaciente = { id: newId, nome, dataNascimento, telefone, email, endereco, genero, cpf };
+        pacientes.push(newPaciente);
+        writeJsonFile(pacientes);
+        res.status(201).json(newPaciente);
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: 'Erro ao cadastrar paciente', error: err });
     }
 };
 
-exports.update = async (req, res) => {
+exports.update = (req, res) => {
     const { nome, dataNascimento, telefone, email, endereco, genero, cpf } = req.body;
     try {
-        const [results] = await db.query('UPDATE paciente SET ? WHERE id = ?', [{ nome, dataNascimento, telefone, email, endereco, genero, cpf }, req.params.id]);
-        if (results.affectedRows === 0) {
+        const pacientes = readJsonFile();
+        const index = pacientes.findIndex(p => p.id === parseInt(req.params.id));
+        if (index === -1) {
             return res.status(404).json({ message: 'Paciente não encontrado' });
         }
+        pacientes[index] = { id: pacientes[index].id, nome, dataNascimento, telefone, email, endereco, genero, cpf };
+        writeJsonFile(pacientes);
         res.json({ message: 'Paciente atualizado com sucesso' });
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: 'Erro ao atualizar paciente', error: err });
     }
 };
 
-exports.delete = async (req, res) => {
+exports.delete = (req, res) => {
     try {
-        const [results] = await db.query('DELETE FROM paciente WHERE id = ?', [req.params.id]);
-        if (results.affectedRows === 0) {
+        const pacientes = readJsonFile();
+        const index = pacientes.findIndex(p => p.id === parseInt(req.params.id));
+        if (index === -1) {
             return res.status(404).json({ message: 'Paciente não encontrado' });
         }
+        pacientes.splice(index, 1);
+        writeJsonFile(pacientes);
         res.json({ message: 'Paciente removido com sucesso' });
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: 'Erro ao remover paciente', error: err });
     }
 };

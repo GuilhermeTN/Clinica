@@ -6,6 +6,15 @@ const consultaController = require('../controllers/consultaController');
 // Rota para obter consultas por data
 router.get('/data', consultaController.getConsultasPorData);
 
+router.get('/pacientes', async (req, res) => {
+    // Implemente a lógica para obter pacientes do banco de dados
+});
+
+// Rota para obter todos os fisioterapeutas
+router.get('/fisioterapeutas', async (req, res) => {
+    // Implemente a lógica para obter fisioterapeutas do banco de dados
+});
+
 
 // Rota para a página de consultas
 router.get('/', (req, res) => {
@@ -26,5 +35,7 @@ router.put('/:id', consultaController.update);
 
 // Rota para excluir uma consulta
 router.delete('/:id', consultaController.delete);
+
+
 
 module.exports = router;

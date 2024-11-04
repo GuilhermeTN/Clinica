@@ -56,9 +56,9 @@ th, td {
     text-align: left;
 }
 
-.alert {
-    margin-top: 20px;
-    padding: 10px;
-    color: white;
-    border-radius: 5px;
+.alert-message {
+    color: red;
+    font-weight: bold;
+    padding: 5px;
+    margin-top: 10px;
 }

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 2,
+    "nome": "marcos",
+    "dataNascimento": "5105-08-23",
+    "telefone": "151515151",
+    "email": "1safdsad@dfsfs",
+    "endereco": "qwewqdas",
+    "genero": "Masculino",
+    "cpf": "02052501"
+  },
+  {
+    "id": 3,
+    "nome": "2w3",
+    "dataNascimento": "0021-03-12",
+    "telefone": "21321",
+    "email": "213213@2313",
+    "endereco": "213213",
+    "genero": "Masculino",
+    "cpf": "3213213213"
+  }
+]

@@ -88,8 +88,10 @@ async function carregarItens() {
         const response = await fetch('/estoque/itens');
         const items = await response.json();
         const tabelaCorpo = document.getElementById('tabela-corpo');
+        const alertContainer = document.getElementById('alert-container');
 
         tabelaCorpo.innerHTML = ''; // Limpa a tabela antes de adicionar os itens
+        alertContainer.innerHTML = ''; // Limpa alertas anteriores
 
         items.forEach(item => {
             const linha = document.createElement('tr');
@@ -119,6 +121,12 @@ async function carregarItens() {
             linha.appendChild(acoes);
 
             tabelaCorpo.appendChild(linha);
+
+            // Verifica se a quantidade está abaixo do alerta mínimo
+            if (item.quantidade < item.alertaMinimo) {
+                // Adiciona a mensagem de alerta ao container
+                alertContainer.innerHTML += `<p>Alerta: O item ${item.descricao} está abaixo do limite mínimo!</p>`;
+            }
         });
     } catch (error) {
         console.error('Erro ao carregar itens do estoque:', error);
