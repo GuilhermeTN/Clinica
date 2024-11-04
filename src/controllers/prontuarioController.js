@@ -1,49 +1,90 @@
-// src/controllers/prontuarioController.js
-const db = require('../../db/database');
+const fs = require('fs');
+const path = require('path');
+// Corrigido o caminho para 'db'
+const filePath = path.join(__dirname, '../../db/prontuario.json');
 
-exports.getAll = async (req, res) => {
-    try {
-        const [results] = await db.query('SELECT * FROM prontuario');
-        res.json(results);
-    } catch (err) {
-        res.status(500).json(err);
+// Lê todos os prontuários do arquivo JSON
+function readProntuarios() {
+    if (!fs.existsSync(filePath)) {
+        // Se o arquivo não existir, retorna um array vazio
+        return [];
     }
+    const data = fs.readFileSync(filePath, 'utf-8');
+    return JSON.parse(data);
+}
+
+// Salva os prontuários em um arquivo JSON
+function saveProntuarios(prontuarios) {
+    fs.writeFileSync(filePath, JSON.stringify(prontuarios, null, 2));
+}
+
+// Função para obter todos os prontuários
+function getAll(req, res) {
+    const prontuarios = readProntuarios();
+    res.json(prontuarios);
+}
+
+// Função para obter um prontuário específico por ID
+function getById(req, res) {
+    const prontuarios = readProntuarios();
+    const id = parseInt(req.params.id, 10);
+    const entry = prontuarios.find(item => item.id === id);
+
+    if (!entry) {
+        return res.status(404).json({ message: 'Prontuário não encontrado' });
+    }
+
+    res.json(entry);
+}
+
+// Função para criar um novo prontuário
+const create = (req, res) => {
+    const prontuarios = readProntuarios();
+    const newProntuario = {
+        id: prontuarios.length > 0 ? prontuarios[prontuarios.length - 1].id + 1 : 1,
+        ...req.body
+    };
+
+    prontuarios.push(newProntuario);
+    saveProntuarios(prontuarios);
+    res.status(201).json(newProntuario);
 };
 
-exports.getById = async (req, res) => {
-    try {
-        const [results] = await db.query('SELECT * FROM prontuario WHERE id = ?', [req.params.id]);
-        res.json(results[0]);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-};
+// Função para atualizar um prontuário por ID
+function update(req, res) {
+    const prontuarios = readProntuarios();
+    const id = parseInt(req.params.id, 10);
+    const index = prontuarios.findIndex(item => item.id === id);
 
-exports.create = async (req, res) => {
-    const { pacienteId, dataRegistro, historico } = req.body;
-    try {
-        const [results] = await db.query('INSERT INTO prontuario SET ?', { pacienteId, dataRegistro, historico });
-        res.status(201).json({ id: results.insertId, ...req.body });
-    } catch (err) {
-        res.status(500).json(err);
+    if (index === -1) {
+        return res.status(404).json({ message: 'Prontuário não encontrado' });
     }
-};
 
-exports.update = async (req, res) => {
-    const { pacienteId, dataRegistro, historico } = req.body;
-    try {
-        await db.query('UPDATE prontuario SET ? WHERE id = ?', [{ pacienteId, dataRegistro, historico }, req.params.id]);
-        res.json({ message: 'Prontuário atualizado com sucesso' });
-    } catch (err) {
-        res.status(500).json(err);
-    }
-};
+    const updatedEntry = { ...prontuarios[index], ...req.body };
+    prontuarios[index] = updatedEntry;
+    saveProntuarios(prontuarios);
+    res.json(updatedEntry);
+}
 
-exports.delete = async (req, res) => {
-    try {
-        await db.query('DELETE FROM prontuario WHERE id = ?', [req.params.id]);
-        res.json({ message: 'Prontuário excluído com sucesso' });
-    } catch (err) {
-        res.status(500).json(err);
+// Função para deletar um prontuário por ID
+function deleteById(req, res) {
+    const prontuarios = readProntuarios();
+    const id = parseInt(req.params.id, 10);
+    const index = prontuarios.findIndex(item => item.id === id);
+
+    if (index === -1) {
+        return res.status(404).json({ message: 'Prontuário não encontrado' });
     }
+
+    prontuarios.splice(index, 1);
+    saveProntuarios(prontuarios);
+    res.json({ message: 'Prontuário deletado com sucesso' });
+}
+
+module.exports = {
+    getAll,
+    getById,
+    create,
+    update,
+    deleteById
 };

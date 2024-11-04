@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path'); // Para servir arquivos estáticos
-const pacienteController = require('../controllers/pacienteController'); // Importar o pacienteController
+const path = require('path');
+const pacienteController = require('../controllers/pacienteController');
 
 // Rota para a página de pacientes
 router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'pacientes.html'));
 });
 
-router.get('/', pacienteController.getAllPacientes);
 // Rota para obter todos os pacientes
 router.get('/data', pacienteController.getAll);
 

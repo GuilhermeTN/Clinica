@@ -8,16 +8,6 @@ const readJsonFile = () => {
     return JSON.parse(data);
 };
 
-
-const readDataFromFile = () => {
-    try {
-        return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-    } catch (err) {
-        console.error("Erro ao ler o arquivo paciente.json:", err);
-        throw err; // Lança o erro para que a função getAllPacientes também capture
-    }
-};
-
 // Função auxiliar para escrever no arquivo JSON
 const writeJsonFile = (data) => {
     fs.writeFileSync(jsonFilePath, JSON.stringify(data, null, 2), 'utf8');
@@ -32,22 +22,6 @@ exports.getAll = (req, res) => {
     }
 };
 
-
-exports.getAllPacientes = (req, res) => {
-    fs.readFile(filePath, 'utf-8', (err, data) => {
-        if (err) {
-            console.error("Erro ao ler paciente.json:", err);
-            return res.status(500).json({ message: 'Erro ao carregar pacientes' });
-        }
-        try {
-            const pacientes = JSON.parse(data);
-            res.json(pacientes);
-        } catch (parseError) {
-            console.error("Erro ao parsear paciente.json:", parseError);
-            res.status(500).json({ message: 'Erro ao processar dados dos pacientes' });
-        }
-    });
-};
 exports.getById = (req, res) => {
     try {
         const pacientes = readJsonFile();

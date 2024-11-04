@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Prontuários</title>
+    <link rel="stylesheet" href="Css/prontuario.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerenciamento de Prontuários</h1>
+        
+        <!-- Campo de Busca -->
+        <input type="text" id="search" placeholder="Buscar paciente..." oninput="searchProntuario()">
+
+        <!-- Tabela de Prontuários -->
+        <table id="prontuarios-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome do Paciente</th>
+                    <th>Data do Registro</th>
+                    <th>Histórico</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Linhas de prontuários serão adicionadas aqui dinamicamente -->
+            </tbody>
+        </table>
+
+        <!-- Botão para adicionar novo prontuário -->
+        <button class="add-btn" onclick="openForm()">Adicionar Prontuário</button>
+
+        <!-- Formulário para Adicionar/Editar Prontuário -->
+        <div id="form-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeForm()">&times;</span>
+                <h2 id="form-title">Adicionar Prontuário</h2>
+                <form id="prontuario-form" onsubmit="saveProntuario(event)">
+                    <input type="hidden" id="prontuario-id">
+                    <label for="paciente">Nome do Paciente:</label>
+                    <input type="text" id="paciente" required>
+                    <label for="data">Data do Registro:</label>
+                    <input type="date" id="data" required>
+                    <label for="historico">Histórico:</label>
+                    <textarea id="historico" required></textarea>
+                    <button type="submit" class="submit-btn">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="JS/pronturario.js"></script>
+</body>
+</html>

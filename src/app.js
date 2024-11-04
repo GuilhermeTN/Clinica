@@ -22,14 +22,12 @@ app.use('/prontuarios', prontuarioRoutes);
 app.use('/faturamentos', faturamentoRoutes);
 app.use('/fisioterapeutas', fisioterapeutaRoutes);
 app.use('/tratamentos', tratamentoRoutes);
-app.use('/estoque', estoqueRoutes); // Deve estar correto
+app.use('/estoque', estoqueRoutes);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
-

@@ -1,21 +1,19 @@
 // src/routes/prontuario.js
 const express = require('express');
+const path = require('path');
 const router = express.Router();
 const prontuarioController = require('../controllers/prontuarioController');
 
-// Rota para obter todos os prontuários
-router.get('/', prontuarioController.getAll);
+// Rota para exibir a página HTML de prontuários
+router.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'prontuario.html'));
+});
 
-// Rota para obter um prontuário específico por ID
-router.get('/:id', prontuarioController.getById);
-
-// Rota para criar um novo prontuário
-router.post('/', prontuarioController.create);
-
-// Rota para atualizar um prontuário por ID
-router.put('/:id', prontuarioController.update);
-
-// Rota para excluir um prontuário por ID
-router.delete('/:id', prontuarioController.delete);
+// Definindo as rotas para o controlador
+router.get('/api', prontuarioController.getAll); // Alterado para '/api'
+router.get('/api/:id', prontuarioController.getById);
+router.post('/api', prontuarioController.create);
+router.put('/api/:id', prontuarioController.update);
+router.delete('/api/:id', prontuarioController.deleteById);
 
 module.exports = router;
