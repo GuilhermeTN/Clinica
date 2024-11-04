@@ -1,17 +1,26 @@
 {
+  "name": "clinica",
+  "version": "1.0.0",
+  "main": "api/app.js",
+  "scripts": {
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js"
+  },
   "dependencies": {
     "express": "^4.21.1",
-    "mysql2": "^3.11.3",
-    "nodemon": "^3.1.7"
-  },"scripts": {
-    "dev": "nodemon src/app.js",
-    "start": "vercel dev"
+    "mysql2": "^3.11.3"
   },
   "vercel": {
     "builds": [
       {
-        "src": "api/app.js",
+        "src": "src/app.js",
         "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "api/app.js"
       }
     ]
   }
