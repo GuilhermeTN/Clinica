@@ -10,5 +10,6 @@ router.get('/', (req, res) => {
 
 // Rota para registrar pagamento
 router.post('/registrar', faturamentoController.registrarPagamento);
+router.get('/pagamentos', faturamentoController.obterPagamentos); // Nova rota para obter pagamentos
 
 module.exports = router;

@@ -1,47 +1,78 @@
-body {
-    font-family: sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 0;
+}
+
+body {
+    background-color: #f0f5f0; /* Fundo suave */
+    color: #333;
+}
+
+h1 {
+    color: #008080;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.navigation {
+    background-color: #008080;
+    padding: 10px;
+    text-align: center;
+}
+
+.navigation a {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navigation a:hover {
+    color: #e0e0e0;
 }
 
 .container {
     max-width: 800px;
-    margin: auto;
-}
-
-h1 {
-    text-align: center;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .form-container {
     margin: 20px 0;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
 }
 
-input {
-    width: 100%;
-    padding: 10px;
+.form-container h2 {
+    color: #008080;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
 }
 
-button {
+#formularioEstoque input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#formularioEstoque button {
+    background-color: #008080;
+    color: #fff;
     padding: 10px;
     border: none;
-    border-radius: 5px;
-    background-color: #28a745;
-    color: white;
+    border-radius: 4px;
+    font-weight: bold;
     cursor: pointer;
+    width: 100%;
 }
 
-button:hover {
-    background-color: #218838;
+#formularioEstoque button:hover {
+    background-color: #007373;
 }
 
 table {
@@ -50,15 +81,68 @@ table {
     margin-top: 20px;
 }
 
-th, td {
-    border: 1px solid #ccc;
+table th,
+table td {
+    border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
 }
 
-.alert-message {
+table th {
+    background-color: #008080;
+    color: #fff;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #e6f2f2;
+}
+
+#alert-container {
     color: red;
-    font-weight: bold;
-    padding: 5px;
     margin-top: 10px;
+}
+
+.form-container {
+    margin: 20px 0;
+}
+
+button {
+    background-color: #008080; /* Cor verde para o botão padrão */
+    color: white; /* Cor do texto */
+    border: none; /* Sem borda */
+    padding: 10px 15px; /* Espaçamento interno */
+    margin: 5px; /* Margem entre os botões */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Muda o cursor ao passar o mouse */
+    transition: background-color 0.3s, transform 0.3s; /* Transição suave */
+    font-size: 16px; /* Tamanho da fonte */
+}
+
+button:hover {
+    background-color: #218838; /* Cor mais escura ao passar o mouse */
+    transform: scale(1.05); /* Aumenta o tamanho levemente */
+}
+
+button:focus {
+    outline: none; /* Remove contorno ao focar */
+}
+
+.edit-btn {
+    background-color: #ffc107; /* Cor amarela para o botão de editar */
+}
+
+.edit-btn:hover {
+    background-color: #e0a800; /* Cor mais escura ao passar o mouse no botão de editar */
+}
+
+.delete-btn {
+    background-color: #dc3545; /* Cor vermelha para o botão de excluir */
+}
+
+.delete-btn:hover {
+    background-color: #c82333; /* Cor mais escura ao passar o mouse no botão de excluir */
 }

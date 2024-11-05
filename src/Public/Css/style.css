@@ -15,12 +15,29 @@
   }
   
   .banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 300px; /* Altura do banner */
-    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKH9aiJXpjhMQFjohRIum86033GNZ73tWqPA&s');
+    background-image: url('https://www.saude.ce.gov.br/wp-content/uploads/sites/9/2021/10/banner_fisioterapia_HMJMA_out2021_001.jpg');
     background-size: cover; /* Cobre o espaço sem distorcer */
     background-position: center; /* Centraliza a imagem */
+    padding: 20px;
   }
+
+  .banner-logo {
+    width: 217px; /* Largura da logo, ajuste conforme necessário */
+    height: auto; /* Mantém a proporção da imagem */
+    margin-right: -50px; /* Espaço entre a logo e o título */
+}
+
+
+  .banner-title {
+    color: #008080; /* tom de verde que já usamos */
+    font-size: 9.5em; /* ajuste o tamanho conforme necessário */
+    font-family: sans-serif;
+}
   
   nav {
     background-color: #008080;
@@ -139,7 +156,149 @@
     color: #fff;
 }
 
+.card-hover {
+  position: absolute;
+  top: 100%; /* Exatamente abaixo do card */
+  left: 0;
+  width: 90%; /* Menor largura */
+  background-color: #008080;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: -1;
+}
+
+.card-container:hover .card-hover {
+  opacity: 1;
+  transform: translateY(0);
+  z-index: 1;
+}
+
 .card:hover h3,
 .card:hover p {
     color: #fff; /* Texto branco ao passar o mouse */
+}
+
+.info-section {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #f9f9f9;
+}
+
+.info-section h2 {
+  color: #008080;
+  margin-bottom: 30px;
+  font-size: 2em;
+}
+
+.info-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.info-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: 30%;
+  min-width: 250px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-card .icon {
+  font-size: 2em;
+  color: #008080;
+  margin-bottom: 10px;
+}
+
+.info-card h3 {
+  color: #008080;
+  margin-bottom: 10px;
+}
+
+.info-card p {
+  color: #555;
+  font-size: 0.9em;
+  margin-bottom: 15px;
+}
+
+.info-card a {
+  color: #8e44ad;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.info-card a:hover {
+  text-decoration: underline;
+}
+
+.newsletter-section {
+  background-color: #f1f1f1;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.newsletter-section h2 {
+  color: #008080;
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+
+.newsletter-section p {
+  color: #555;
+  font-size: 0.9em;
+  margin-bottom: 20px;
+}
+
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.newsletter-form input[type="text"],
+.newsletter-form input[type="email"] {
+  width: 80%;
+  max-width: 400px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.newsletter-form button {
+  width: 80%;
+  max-width: 400px;
+  padding: 10px;
+  background-color: #8e44ad;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.newsletter-form button:hover {
+  background-color: #7d3c98;
+}
+.footer {
+  background-color: #008080; /* Usando o verde que combina com o site */
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.footer-content p {
+  margin: 5px 0;
+}
+
+.footer-content p:first-of-type {
+  font-weight: bold;
 }

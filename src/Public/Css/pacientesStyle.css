@@ -1,65 +1,112 @@
-body {
+* {
+    box-sizing: border-box;
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f0f5f0; /* tom suave de fundo */
+    color: #333;
+    font-family: sans-serif;
 }
 
 h1, h2 {
+    color: #008080;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 700;
+}
+
+.navigation {
+    background-color: #008080;
+    padding: 10px;
     text-align: center;
 }
 
-form {
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.navigation a {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: 600;
 }
 
-input, select {
-    margin: 5px;
-    padding: 10px;
-    width: 200px;
+.navigation a:hover {
+    color: #f0f5f0;
 }
 
-button {
+#pacienteForm {
+    background-color: #ffffff;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#pacienteForm label {
+    color: #008080;
+    font-weight: 600;
+    display: block;
     margin-top: 10px;
+}
+
+#pacienteForm input,
+#pacienteForm select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#pacienteForm button {
+    background-color: #008080;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
     padding: 10px;
-    background-color: #007BFF;
-    color: white;
+    width: 100%;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #0056b3;
+#pacienteForm button:hover {
+    background-color: #007373;
 }
 
-table {
+#pacientesTable {
+    width: 90%;
     margin: 20px auto;
     border-collapse: collapse;
-    width: 80%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-table, th, td {
-    border: 1px solid #dddddd;
-}
-
-th, td {
-    padding: 8px;
+#pacientesTable th,
+#pacientesTable td {
+    border: 1px solid #ddd;
+    padding: 10px;
     text-align: center;
 }
 
-th {
-    background-color: #f2f2f2;
+#pacientesTable th {
+    background-color: #008080;
+    color: #fff;
+    font-weight: 600;
 }
 
-a {
+#pacientesTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#pacientesTable tr:hover {
+    background-color: #e6f2f2;
+}
+
+#status {
+    color: #008080;
+    text-align: center;
     margin-top: 10px;
-    padding: 10px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-a:hover {
-    background-color: #0056b3;
 }

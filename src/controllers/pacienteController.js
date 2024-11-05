@@ -2,13 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const jsonFilePath = path.join(__dirname, '../../db/paciente.json');
 
-// Função auxiliar para ler o arquivo JSON
 const readJsonFile = () => {
     const data = fs.readFileSync(jsonFilePath, 'utf8');
     return JSON.parse(data);
 };
 
-// Função auxiliar para escrever no arquivo JSON
 const writeJsonFile = (data) => {
     fs.writeFileSync(jsonFilePath, JSON.stringify(data, null, 2), 'utf8');
 };

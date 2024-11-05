@@ -12,5 +12,19 @@
     "especialidade": "Terapeuta Veterinario",
     "telefone": "61998340822",
     "email": "luisOt2erapeuta@gmail.com"
+  },
+  {
+    "id": 4,
+    "nome": "Rogerin",
+    "especialidade": "Massagista",
+    "telefone": "321-8181",
+    "email": "MassagistaRogerin@gmail.com"
+  },
+  {
+    "id": 5,
+    "nome": "thiago",
+    "especialidade": "Dormir",
+    "telefone": "033260320360",
+    "email": "sadasd@fasf"
   }
 ]

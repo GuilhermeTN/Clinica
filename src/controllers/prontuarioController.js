@@ -1,30 +1,24 @@
 const fs = require('fs');
 const path = require('path');
-// Corrigido o caminho para 'db'
 const filePath = path.join(__dirname, '../../db/prontuario.json');
 
-// Lê todos os prontuários do arquivo JSON
 function readProntuarios() {
     if (!fs.existsSync(filePath)) {
-        // Se o arquivo não existir, retorna um array vazio
         return [];
     }
     const data = fs.readFileSync(filePath, 'utf-8');
     return JSON.parse(data);
 }
 
-// Salva os prontuários em um arquivo JSON
 function saveProntuarios(prontuarios) {
     fs.writeFileSync(filePath, JSON.stringify(prontuarios, null, 2));
 }
 
-// Função para obter todos os prontuários
 function getAll(req, res) {
     const prontuarios = readProntuarios();
     res.json(prontuarios);
 }
 
-// Função para obter um prontuário específico por ID
 function getById(req, res) {
     const prontuarios = readProntuarios();
     const id = parseInt(req.params.id, 10);
@@ -37,7 +31,6 @@ function getById(req, res) {
     res.json(entry);
 }
 
-// Função para criar um novo prontuário
 const create = (req, res) => {
     const prontuarios = readProntuarios();
     const newProntuario = {
@@ -50,7 +43,6 @@ const create = (req, res) => {
     res.status(201).json(newProntuario);
 };
 
-// Função para atualizar um prontuário por ID
 function update(req, res) {
     const prontuarios = readProntuarios();
     const id = parseInt(req.params.id, 10);
@@ -66,7 +58,6 @@ function update(req, res) {
     res.json(updatedEntry);
 }
 
-// Função para deletar um prontuário por ID
 function deleteById(req, res) {
     const prontuarios = readProntuarios();
     const id = parseInt(req.params.id, 10);

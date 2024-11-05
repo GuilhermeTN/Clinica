@@ -1,17 +1,37 @@
-document.getElementById('pagamentoForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // Impede o envio padrão do formulário
+// Função para buscar pagamentos existentes e atualizar a lista e o total recebido
+const fetchPayments = () => {
+    fetch('/faturamento/pagamentos')
+        .then(response => response.json())
+        .then(payments => {
+            let totalReceived = 0; // Inicializa o total recebido
+            document.getElementById('paymentList').innerHTML = ''; // Limpa a lista antes de adicionar
 
-    const patientName = document.getElementById('patientName').value;
-    const paymentType = document.getElementById('paymentType').value;
-    const amount = document.getElementById('amount').value;
+            payments.forEach(payment => {
+                document.getElementById('paymentList').innerHTML += `<p>Pagamento de ${payment.nome} no valor de R$${payment.total.toFixed(2)} registrado!</p>`;
+                totalReceived += payment.total; // Acumula o total recebido
+            });
+
+            // Atualiza o valor total recebido na interface
+            document.getElementById('totalReceived').textContent = totalReceived.toFixed(2);
+        })
+        .catch(error => {
+            console.error('Erro ao carregar pagamentos:', error);
+        });
+};
+
+// Chama a função para carregar pagamentos ao iniciar a página
+fetchPayments();
+
+// Adiciona um listener para o formulário de registro de pagamentos
+document.getElementById('pagamentoForm').addEventListener('submit', function (event) {
+    event.preventDefault();
 
     const pagamentoData = {
-        patientName,
-        paymentType,
-        amount: parseFloat(amount)
+        patientName: document.getElementById('patientName').value,
+        paymentType: document.getElementById('paymentType').value,
+        amount: parseFloat(document.getElementById('amount').value)
     };
 
-    // Enviar os dados para a rota de registrar pagamento
     fetch('/faturamento/registrar', {
         method: 'POST',
         headers: {
@@ -27,10 +47,13 @@ document.getElementById('pagamentoForm').addEventListener('submit', function (ev
     })
     .then(data => {
         console.log('Pagamento registrado:', data);
-        // Aqui você pode atualizar a UI, por exemplo, adicionando o pagamento à lista exibida
-        document.getElementById('paymentList').innerHTML += `<p>Pagamento de ${data.nome} no valor de R$${data.total} registrado com sucesso!</p>`;
-        document.getElementById('totalReceived').textContent = (parseFloat(document.getElementById('totalReceived').textContent) + data.total).toFixed(2);
-        // Resetar o formulário
+        document.getElementById('paymentList').innerHTML += `<p>Pagamento de ${data.nome} no valor de R$${data.total.toFixed(2)} registrado com sucesso!</p>`;
+        
+        // Atualiza o total recebido diretamente com o novo pagamento
+        const totalReceivedElement = document.getElementById('totalReceived');
+        totalReceivedElement.textContent = (parseFloat(totalReceivedElement.textContent) + data.total).toFixed(2);
+        
+        // Reinicia o formulário
         document.getElementById('pagamentoForm').reset();
     })
     .catch(error => {

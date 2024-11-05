@@ -1,7 +1,7 @@
-/* consultasStyle.css */
+/* fisioterapeutasStyle.css */
 
 /* Reset básico de estilo */
-body, h1, h2, label, input, button, textarea {
+body, h1, h2, label, input, button {
     margin: 0;
     padding: 0;
 }
@@ -13,18 +13,11 @@ body {
     color: #333; /* Cor do texto */
 }
 
-/* Cabeçalho */
-h1 {
-    text-align: center;
-    background-color: #008080; /* Teal */
-    color: white; /* Cor do título */
-    padding: 20px 0;
-}
-
 /* Navegação */
 .navigation {
     background-color: #008080; /* Teal */
-    padding: 10px 0;
+    padding: 10px 20px;
+    text-align: center;
 }
 
 .navigation a {
@@ -38,45 +31,37 @@ h1 {
     text-decoration: underline; /* Efeito de hover */
 }
 
-/* Estilo principal */
-main {
-    padding: 20px;
-}
-
-/* Seções */
-section {
-    background-color: white; /* Fundo branco para as seções */
-    border-radius: 8px; /* Bordas arredondadas */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    padding: 20px;
-    margin-bottom: 20px; /* Espaçamento entre seções */
+/* Título principal */
+h1 {
+    color: #008080; /* Cor do título */
+    text-align: center;
+    margin: 20px 0;
 }
 
 /* Estilo do formulário */
 form {
-    display: flex;
-    flex-direction: column; /* Para empilhar os elementos */
     background-color: white; /* Fundo branco para o formulário */
     border-radius: 8px; /* Bordas arredondadas */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
     padding: 20px;
+    margin: 0 auto;
+    max-width: 500px; /* Largura máxima do formulário */
 }
 
 label {
     margin-bottom: 5px;
     font-weight: bold;
+    display: block; /* Para que cada label ocupe toda a largura */
 }
 
-input[type="date"],
 input[type="text"],
-select,
-textarea {
+input[type="tel"],
+input[type="email"] {
     padding: 10px;
     border: 1px solid #ccc; /* Borda padrão */
     border-radius: 5px; /* Bordas arredondadas */
     margin-bottom: 15px; /* Espaçamento entre campos */
     width: 100%; /* Largura total do campo */
-    resize: none; /* Para evitar redimensionamento da textarea */
 }
 
 button {
@@ -88,24 +73,48 @@ button {
     cursor: pointer; /* Muda o cursor ao passar o mouse */
     transition: background-color 0.3s; /* Transição suave */
     font-size: 16px; /* Tamanho da fonte */
+    width: 100%; /* Largura total do botão */
 }
 
 button:hover {
     background-color: #006f6f; /* Cor mais escura ao passar o mouse */
 }
 
-/* Status da atualização */
-#update-status {
+/* Status */
+#status {
     text-align: center;
-    margin-top: 10px;
-    color: #d9534f; /* Cor vermelha para mensagens de erro */
+    margin: 20px 0;
 }
 
-/* Lista de consultas */
-#consulta-list {
-    border: 1px solid #ddd; /* Borda suave para a lista */
+/* Tabela de fisioterapeutas */
+table {
+    width: 100%; /* Largura total da tabela */
+    border-collapse: collapse; /* Remove espaçamento entre células */
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd; /* Borda suave para as células */
     padding: 10px;
-    border-radius: 5px; /* Bordas arredondadas */
-    background-color: #f9f9f9; /* Fundo claro para a lista */
-    margin-top: 20px; /* Espaçamento acima da lista */
+    text-align: left; /* Alinhamento à esquerda */
+}
+
+th {
+    background-color: #008080; /* Fundo teal para o cabeçalho */
+    color: white; /* Cor do texto no cabeçalho */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Fundo claro para linhas pares */
+}
+
+tbody tr:hover {
+    background-color: #e0e0e0; /* Cor de fundo ao passar o mouse */
+}
+
+/* Título da tabela */
+h2 {
+    color: #008080; /* Cor do título das seções */
+    text-align: center;
+    margin: 20px 0;
 }

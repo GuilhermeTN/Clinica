@@ -8,7 +8,10 @@
 </head>
 <body>
     <header>
-        <div class="banner"></div>
+        <div class="banner">
+            <img src="Css/Imagem.png" alt="Logo" class="banner-logo">
+            <h1 class="banner-title">FisioVital</h1>
+        </div>
         <nav>
             <ul>
                 <li><a href="/pacientes">Pacientes</a></li>
@@ -23,7 +26,6 @@
     </header>
 
     <main>
-        <h1>Clínica de Fisioterapia</h1>
         <div class="especialidades">
             <h2>Especialidades</h2>
             <div class="card-container">
@@ -37,10 +39,57 @@
                     <h3>Dores Crônicas</h3>
                     <p>Esse atendimento é focado em pacientes que sofrem com dores a mais de 3 (três) meses...</p>
                 </div>
-                <!-- Adicione mais cards conforme necessário -->
+                <div class="card">
+                    <div class="card-image" style="background-image: url('https://orthophysio.com.br/storage/especialidades/October2020/muGwvoLX3EwjUI5RjJSc.png');"></div>
+                    <h3>Fisioterapia</h3>
+                    <p>Além de uma ampla rede de unidades,também possui uma das mais...</p>
+                </div>
+                <div class="card">
+                    <div class="card-image" style="background-image: url('https://orthophysio.com.br/storage/especialidades/December2021/tgSQV2fA2jUFeKsJDokK.png');"></div>
+                    <h3>Interface Cérebro Máquina</h3>
+                    <p>ICM-Interface Cérebro Máquina auxilia os pacientes a realizarem os movimentos da mão...</p>
+                </div>
             </div>
         </div>
+        <section class="info-section">
+            <h2>Cuide bem da sua saúde</h2>
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="icon">💬</div>
+                    <h3>Convênios que atendemos</h3>
+                    <p>Entre em contato caso seu convênio não esteja em nossa lista. Faremos o melhor para lhe atender.</p>
+                    <a href="#">Saiba mais</a>
+                </div>
+                <div class="info-card">
+                    <div class="icon">👤</div>
+                    <h3>Conheça mais sobre a Clínica</h3>
+                    <p>Estamos atendendo em um local novo, com um espaço amplo e confortável, pensando em você.</p>
+                    <a href="#">Saiba mais</a>
+                </div>
+                <div class="info-card">
+                    <div class="icon">🩺</div>
+                    <h3>Especialidades médicas</h3>
+                    <p>Ampliamos nosso leque de especialidades. Confira as novidades que preparamos para você.</p>
+                    <a href="#">Saiba mais</a>
+                </div>
+            </div>
+        </section>
+        <section class="newsletter-section">
+            <h2>Receba novidades</h2>
+            <p>Deixe seu e-mail aqui e sempre que tivermos novidades você será o primeiro a saber.</p>
+            <form class="newsletter-form">
+                <input type="text" placeholder="Nome" required>
+                <input type="email" placeholder="Endereço de email" required>
+                <button type="submit">ENVIAR</button>
+            </form>
+        </section>
     </main>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Sobre nós: Somos dedicados a fornecer o melhor atendimento e cuidados médicos para nossa comunidade. Entre em contato conosco para saber mais sobre nossos serviços e especialidades.</p>
+            <p>&copy; 2024 FisioVital. Todos os direitos reservados.</p>
+        </div>
+    </footer>
     <script src="js/main.js"></script>
 </body>
 </html>

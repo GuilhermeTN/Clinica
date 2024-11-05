@@ -2,45 +2,52 @@ const fs = require('fs');
 const path = require('path');
 const paymentsFilePath = path.join(__dirname, '../../db/pagamentos.json');
 
-// Função para gerar um ID único (simples, para propósitos de exemplo)
-const generateId = () => {
-    return Date.now();
+const getNextId = (payments) => {
+    if (payments.length === 0) return 1; // Se não houver pagamentos, começa com 1
+    const maxId = Math.max(...payments.map(payment => payment.id));
+    return maxId + 1; // Incrementa o maior ID existente
 };
 
-// Função para registrar pagamento
 const registrarPagamento = (req, res) => {
-    const { patientName, paymentType, amount } = req.body;
-    const newPayment = {
-        id: generateId(),
-        nome: patientName,
-        total: amount
-    };
+    const { patientName, amount } = req.body;
 
-    // Ler o arquivo JSON existente
     fs.readFile(paymentsFilePath, 'utf8', (err, data) => {
         if (err) {
             console.error('Erro ao ler o arquivo:', err);
             return res.status(500).json({ message: 'Erro ao registrar pagamento' });
         }
 
-        let payments = [];
-        if (data) {
-            payments = JSON.parse(data); // Parse se o arquivo não estiver vazio
-        }
+        const payments = data ? JSON.parse(data) : [];
+        const newPayment = {
+            id: getNextId(payments), // Gera ID sequencial
+            nome: patientName,
+            total: amount,
+        };
 
-        payments.push(newPayment); // Adiciona o novo pagamento
+        payments.push(newPayment);
 
-        // Escrever de volta no arquivo JSON
         fs.writeFile(paymentsFilePath, JSON.stringify(payments, null, 2), (err) => {
             if (err) {
                 console.error('Erro ao salvar pagamentos:', err);
                 return res.status(500).json({ message: 'Erro ao registrar pagamento' });
             }
-            res.status(201).json(newPayment); // Responde com o pagamento criado
+            res.status(201).json(newPayment);
         });
+    });
+};
+
+const obterPagamentos = (req, res) => {
+    fs.readFile(paymentsFilePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Erro ao ler o arquivo:', err);
+            return res.status(500).json({ message: 'Erro ao obter pagamentos' });
+        }
+        const payments = data ? JSON.parse(data) : [];
+        res.status(200).json(payments);
     });
 };
 
 module.exports = {
     registrarPagamento,
+    obterPagamentos, // Adicionada nova função
 };

@@ -14,17 +14,22 @@ document.getElementById('pacienteForm').addEventListener('submit', async (event)
         });
 
         if (response.ok) {
-            document.getElementById('status').innerText = 'Paciente cadastrado com sucesso!';
+            showStatus('Paciente cadastrado com sucesso!');
             event.target.reset(); // Reseta o formulário
             loadPacientes(); // Atualiza a tabela de pacientes
         } else {
             const errorData = await response.json();
-            document.getElementById('status').innerText = `Erro: ${errorData.message}`;
+            showStatus(`Erro: ${errorData.message}`);
         }
     } catch (error) {
-        document.getElementById('status').innerText = `Erro ao cadastrar paciente: ${error.message}`;
+        showStatus(`Erro ao cadastrar paciente: ${error.message}`);
     }
 });
+
+// Função para mostrar mensagens de status
+function showStatus(message) {
+    document.getElementById('status').innerText = message;
+}
 
 // Função para carregar pacientes cadastrados
 async function loadPacientes() {
@@ -51,16 +56,22 @@ async function loadPacientes() {
         });
 
         // Adiciona event listeners para os botões de remoção
-        const removeButtons = document.querySelectorAll('.remove-btn');
-        removeButtons.forEach(button => {
-            button.addEventListener('click', (event) => {
-                const id = event.target.getAttribute('data-id');
-                removePaciente(id);
-            });
-        });
+        addRemoveEventListeners();
     } catch (error) {
         console.error('Erro ao carregar pacientes:', error);
+        showStatus('Erro ao carregar pacientes. Tente novamente.');
     }
+}
+
+// Função para adicionar listeners aos botões de remoção
+function addRemoveEventListeners() {
+    const removeButtons = document.querySelectorAll('.remove-btn');
+    removeButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const id = event.target.getAttribute('data-id');
+            removePaciente(id);
+        });
+    });
 }
 
 // Função para remover um paciente
@@ -72,14 +83,14 @@ async function removePaciente(id) {
             });
 
             if (response.ok) {
-                document.getElementById('status').innerText = 'Paciente removido com sucesso!';
+                showStatus('Paciente removido com sucesso!');
                 loadPacientes(); // Atualiza a tabela de pacientes
             } else {
                 const errorData = await response.json();
-                document.getElementById('status').innerText = `Erro: ${errorData.message}`;
+                showStatus(`Erro: ${errorData.message}`);
             }
         } catch (error) {
-            document.getElementById('status').innerText = `Erro ao remover paciente: ${error.message}`;
+            showStatus(`Erro ao remover paciente: ${error.message}`);
         }
     }
 }

@@ -1,15 +1,11 @@
 let currentId = 0;
-// Defina a função addItem antes de atribuí-la ao evento
-const addItem = (event) => {
-    event.preventDefault(); // Previne o envio padrão do formulário
 
-    console.log('Tentando acessar os elementos do formulário.');
+const addItem = (event) => {
+    event.preventDefault();
 
     const descricao = document.getElementById('descricao');
     const quantidade = document.getElementById('quantidade');
     const alertaMinimo = document.getElementById('alertaMinimo');
-    currentId ++;
-    
 
     if (!descricao || !quantidade || !alertaMinimo) {
         console.error('Um ou mais elementos do formulário não foram encontrados.');
@@ -17,15 +13,11 @@ const addItem = (event) => {
     }
 
     const itemData = {
-        id: currentId,
         descricao: descricao.value,
         quantidade: quantidade.value,
         alertaMinimo: alertaMinimo.value
     };
 
-    console.log('Dados do item:', itemData);
-
-    // Envia a requisição para adicionar o item
     fetch('http://localhost:3000/estoque/create', {
         method: 'POST',
         headers: {
@@ -40,39 +32,15 @@ const addItem = (event) => {
         return response.json();
     })
     .then(data => {
-        console.log('Item adicionado com sucesso:', data);
-
-        // Adiciona o item à tabela automaticamente
         const tabelaCorpo = document.getElementById('tabela-corpo');
         const linha = document.createElement('tr');
 
-        const descricaoCell = document.createElement('td');
-        descricaoCell.textContent = itemData.descricao;
-        linha.appendChild(descricaoCell);
-
-        const quantidadeCell = document.createElement('td');
-        quantidadeCell.textContent = itemData.quantidade;
-        linha.appendChild(quantidadeCell);
-
-        const acoesCell = document.createElement('td');
-
-        // Botão de Atualizar
-        const btnAtualizar = document.createElement('button');
-        btnAtualizar.textContent = 'Atualizar';
-        btnAtualizar.onclick = () => atualizarQuantidade(data.id); // Usando o ID retornado do servidor
-        acoesCell.appendChild(btnAtualizar);
-
-        // Botão de Remover
-        const btnRemover = document.createElement('button');
-        btnRemover.textContent = 'Remover';
-        btnRemover.onclick = () => removerItem(data.id); // Usando o ID retornado do servidor
-        acoesCell.appendChild(btnRemover);
-
-        linha.appendChild(acoesCell);
+        linha.appendChild(createCell(data.descricao));
+        linha.appendChild(createCell(data.quantidade));
+        linha.appendChild(createActionsCell(data.id));
 
         tabelaCorpo.appendChild(linha);
 
-        // Limpa os campos do formulário após o envio
         descricao.value = '';
         quantidade.value = '';
         alertaMinimo.value = '';
@@ -82,6 +50,27 @@ const addItem = (event) => {
     });
 };
 
+const createCell = (text) => {
+    const cell = document.createElement('td');
+    cell.textContent = text;
+    return cell;
+};
+
+const createActionsCell = (id) => {
+    const acoesCell = document.createElement('td');
+
+    const btnAtualizar = document.createElement('button');
+    btnAtualizar.textContent = 'Atualizar';
+    btnAtualizar.onclick = () => atualizarQuantidade(id);
+    acoesCell.appendChild(btnAtualizar);
+
+    const btnRemover = document.createElement('button');
+    btnRemover.textContent = 'Remover';
+    btnRemover.onclick = () => removerItem(id);
+    acoesCell.appendChild(btnRemover);
+
+    return acoesCell;
+};
 
 async function carregarItens() {
     try {
@@ -90,41 +79,18 @@ async function carregarItens() {
         const tabelaCorpo = document.getElementById('tabela-corpo');
         const alertContainer = document.getElementById('alert-container');
 
-        tabelaCorpo.innerHTML = ''; // Limpa a tabela antes de adicionar os itens
-        alertContainer.innerHTML = ''; // Limpa alertas anteriores
+        tabelaCorpo.innerHTML = '';
+        alertContainer.innerHTML = '';
 
         items.forEach(item => {
             const linha = document.createElement('tr');
-            
-            const descricao = document.createElement('td');
-            descricao.textContent = item.descricao;
-            linha.appendChild(descricao);
-
-            const quantidade = document.createElement('td');
-            quantidade.textContent = item.quantidade;
-            linha.appendChild(quantidade);
-
-            const acoes = document.createElement('td');
-
-            // Botão de Atualizar
-            const btnAtualizar = document.createElement('button');
-            btnAtualizar.textContent = 'Atualizar';
-            btnAtualizar.onclick = () => atualizarQuantidade(item.id);
-            acoes.appendChild(btnAtualizar);
-
-            // Botão de Remover
-            const btnRemover = document.createElement('button');
-            btnRemover.textContent = 'Remover';
-            btnRemover.onclick = () => removerItem(item.id);
-            acoes.appendChild(btnRemover);
-
-            linha.appendChild(acoes);
+            linha.appendChild(createCell(item.descricao));
+            linha.appendChild(createCell(item.quantidade));
+            linha.appendChild(createActionsCell(item.id));
 
             tabelaCorpo.appendChild(linha);
 
-            // Verifica se a quantidade está abaixo do alerta mínimo
             if (item.quantidade < item.alertaMinimo) {
-                // Adiciona a mensagem de alerta ao container
                 alertContainer.innerHTML += `<p>Alerta: O item ${item.descricao} está abaixo do limite mínimo!</p>`;
             }
         });
@@ -137,7 +103,7 @@ async function atualizarQuantidade(id) {
     const novaQuantidade = prompt('Digite a nova quantidade:');
     if (novaQuantidade) {
         try {
-            const response = await fetch(`/estoque/update/${id}`, {
+            const response = await fetch(`/estoque/update/${id}`, { // Corrigido para usar crase
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -159,7 +125,7 @@ async function atualizarQuantidade(id) {
 async function removerItem(id) {
     if (confirm('Tem certeza que deseja remover este item?')) {
         try {
-            const response = await fetch(`/estoque/delete/${id}`, {
+            const response = await fetch(`/estoque/delete/${id}`, { // Corrigido para usar crase
                 method: 'DELETE'
             });
             if (response.ok) {
@@ -176,5 +142,4 @@ async function removerItem(id) {
 
 // Carrega os itens quando a página é carregada
 window.addEventListener('DOMContentLoaded', carregarItens);
-
 document.getElementById('formularioEstoque').addEventListener('submit', addItem);

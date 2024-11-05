@@ -7,14 +7,24 @@
     <link rel="stylesheet" href="css/consultasStyle.css">
 </head>
 <body>
+    <div class="navigation">
+        <a href="/">Página Principal</a>
+        <a href="/pacientes">Pacientes</a>
+        <a href="/consultas">Consultas</a>
+        <a href="/prontuarios">Prontuários</a>
+        <a href="/faturamento">Faturamentos</a>
+        <a href="/fisioterapeutas">Fisioterapeutas</a>
+        <a href="/tratamentos">Tratamentos</a>
+        <a href="/estoque">Estoque</a>
+    </div>
     <h1>Agenda de Consultas</h1>
 
     <form id="consulta-form">
         <label for="paciente">Paciente:</label>
-        <select id="paciente" name="paciente"></select>
+        <input type="text" id="paciente" name="paciente"></input>
 
         <label for="fisioterapeuta">Fisioterapeuta:</label>
-        <select id="fisioterapeuta" name="fisioterapeuta"></select>
+        <input type="text" id="fisioterapeuta" name="fisioterapeuta"></input>
 
         <label for="data">Data:</label>
         <input type="date" id="data" name="data" required>

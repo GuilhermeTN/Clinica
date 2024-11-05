@@ -1,16 +1,18 @@
 document.getElementById('fisioterapeutaForm').addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const nome = document.getElementById('nome').value;
-    const especialidade = document.getElementById('especialidade').value;
-    const telefone = document.getElementById('telefone').value;
-    const email = document.getElementById('email').value;
+    const fisioterapeutaData = {
+        nome: document.getElementById('nome').value,
+        especialidade: document.getElementById('especialidade').value,
+        telefone: document.getElementById('telefone').value,
+        email: document.getElementById('email').value
+    };
 
     try {
         const response = await fetch('/fisioterapeutas/api', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nome, especialidade, telefone, email }),
+            body: JSON.stringify(fisioterapeutaData),
         });
 
         if (response.ok) {
@@ -47,16 +49,20 @@ async function loadFisioterapeutas() {
             tbody.appendChild(row);
         });
 
-        const removeButtons = document.querySelectorAll('.remove-btn');
-        removeButtons.forEach(button => {
-            button.addEventListener('click', (event) => {
-                const id = event.target.getAttribute('data-id');
-                removeFisioterapeuta(id);
-            });
-        });
+        addRemoveEventListeners();
     } catch (error) {
         console.error('Erro ao carregar fisioterapeutas:', error);
     }
+}
+
+function addRemoveEventListeners() {
+    const removeButtons = document.querySelectorAll('.remove-btn');
+    removeButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const id = event.target.getAttribute('data-id');
+            removeFisioterapeuta(id);
+        });
+    });
 }
 
 async function removeFisioterapeuta(id) {

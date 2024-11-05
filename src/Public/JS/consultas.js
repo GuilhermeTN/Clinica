@@ -1,31 +1,30 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    // Preencher select de pacientes
     await loadPacientes();
-    // Preencher select de fisioterapeutas
     await loadFisioterapeutas();
 
     const form = document.getElementById('consulta-form');
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        const pacienteId = form.paciente.value;
-        const fisioterapeutaId = form.fisioterapeuta.value;
-        const data = form.data.value;
-        const tipoTratamento = form.tipoTratamento.value;
-        const observacoes = form.observacoes.value;
-
+        const { paciente, fisioterapeuta, data, tipoTratamento, observacoes } = form;
         const response = await fetch('/consultas', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ pacienteId, fisioterapeutaId, data, tipoTratamento, observacoes }),
+            body: JSON.stringify({
+                pacienteId: paciente.value,
+                fisioterapeutaId: fisioterapeuta.value,
+                data: data.value,
+                tipoTratamento: tipoTratamento.value,
+                observacoes: observacoes.value,
+            }),
         });
 
         const result = await response.json();
         alert(result.message);
         form.reset();
-        loadConsultas(); // Recarregar consultas
+        loadConsultas();
     });
 });
 
@@ -37,7 +36,7 @@ async function loadPacientes() {
     pacientes.forEach(paciente => {
         const option = document.createElement('option');
         option.value = paciente.id;
-        option.textContent = paciente.nome; // Altere 'nome' se o campo tiver outro nome
+        option.textContent = paciente.nome;
         pacienteSelect.appendChild(option);
     });
 }
@@ -50,7 +49,7 @@ async function loadFisioterapeutas() {
     fisioterapeutas.forEach(fisioterapeuta => {
         const option = document.createElement('option');
         option.value = fisioterapeuta.id;
-        option.textContent = fisioterapeuta.nome; // Altere 'nome' se o campo tiver outro nome
+        option.textContent = fisioterapeuta.nome;
         fisioterapeutaSelect.appendChild(option);
     });
 }

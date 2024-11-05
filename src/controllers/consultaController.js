@@ -16,17 +16,13 @@ exports.getConsultasPorData = (req, res) => {
     try {
         const consultas = readDataFromFile();
         const dataConsulta = new Date(ano, mes - 1, dia);
-        
+
         const filteredConsultas = consultas.filter(consulta => {
             const consultaDate = new Date(consulta.data);
-            return consultaDate.getFullYear() === dataConsulta.getFullYear() &&
-                   consultaDate.getMonth() === dataConsulta.getMonth() &&
-                   consultaDate.getDate() === dataConsulta.getDate();
+            return consultaDate.toDateString() === dataConsulta.toDateString();
         });
-        
-        // Se houver consultas, retorna a lista e sinaliza que o dia está ocupado
-        const isDateOccupied = filteredConsultas.length > 0;
 
+        const isDateOccupied = filteredConsultas.length > 0;
         res.json({ consultas: filteredConsultas, isDateOccupied });
     } catch (err) {
         res.status(500).json(err);
@@ -56,15 +52,12 @@ exports.getById = (req, res) => {
 };
 
 exports.create = (req, res) => {
-    console.log("Requisição recebida para criar consulta:", req.body);
     const { pacienteId, fisioterapeutaId, data, tipoTratamento, observacoes } = req.body;
 
     try {
-        // Lê os dados dos pacientes e fisioterapeutas
         const pacientes = JSON.parse(fs.readFileSync(path.join(__dirname, '../../db/paciente.json'), 'utf-8'));
         const fisioterapeutas = JSON.parse(fs.readFileSync(path.join(__dirname, '../../db/fisioterapeuta.json'), 'utf-8'));
 
-        // Verifica se o paciente e o fisioterapeuta existem
         const pacienteExists = pacientes.some(paciente => paciente.id === pacienteId);
         const fisioterapeutaExists = fisioterapeutas.some(fisio => fisio.id === fisioterapeutaId);
 
@@ -76,7 +69,6 @@ exports.create = (req, res) => {
             return res.status(400).json({ message: 'Fisioterapeuta não encontrado.' });
         }
 
-        // Verifica se a data já está ocupada
         const consultas = readDataFromFile();
         const isDateOccupied = consultas.some(consulta => consulta.data === data);
 
@@ -93,7 +85,7 @@ exports.create = (req, res) => {
             status: 'Agendado',
             observacoes
         };
-        
+
         consultas.push(newConsulta);
         writeDataToFile(consultas);
         res.status(201).json({ message: 'Consulta agendada com sucesso.', consulta: newConsulta });
